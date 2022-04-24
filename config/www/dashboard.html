@@ -8,16 +8,32 @@
 <body>
     <iframe id="hassioframe" src="http://hassio.local:8123/lovelace-dashboard" style="position:absolute; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"></iframe>
     <script>
-        var timeoutReloadHassio = setTimeout(reloadHassio, 10000);
+        //This is the time dashboard.js gets to send a message before the iframe is reloaded.
+        //You can tweak this if your Home Assistant instance loads faster or slower.
+        var timeout = 10000;
+
+        //Set a timeout to refresh the page if no message is received in time.
+        var timeoutReloadHassio = setTimeout(reloadHassio, timeout);
+
+        //Capture the original url to navigate the iframe when it crashes.
+        var originalUrl = document.getElementById("hassioframe").src;
+
         window.onmessage = function(e) {
-            if(e.data == 'HA alive')
+            if(e.data == 'hello')
             {
+                //We received the expected message from the dashboard.js file in Home Assistant.
+                //Clear the reload timeout and set it again.
                 clearTimeout(timeoutReloadHassio);
-                timeoutReloadHassio = setTimeout(reloadHassio, 10000);
+                timeoutReloadHassio = setTimeout(reloadHassio, timeout);
             }
         };
+
         function reloadHassio() {
-            document.getElementById("hassioframe").src = "http://hassio.local:8123/lovelace-dashboard";
+            //Refresh the page with the current url.
+            document.getElementById("hassioframe").src = originalUrl;
+
+            //Set the timeout again to keep monitoring Home Assistant.
+            timeoutReloadHassio = setTimeout(reloadHassio, timeout);
         }
     </script>
 </body>
