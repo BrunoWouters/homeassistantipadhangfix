@@ -1,5 +1,5 @@
-function sendHearthBeat() {
-    window.top.postMessage('HA alive', '*');
+function sendHello() {
+    window.top.postMessage('hello', '*');
 }
 
-setInterval(sendHearthBeat, 1000);
+setInterval(sendHello, 1000);
