@@ -19,13 +19,10 @@
         var originalUrl = document.getElementById("hassioframe").src;
 
         window.onmessage = function(e) {
-            if(e.data == 'hello')
-            {
-                //We received the expected message from the dashboard.js file in Home Assistant.
-                //Clear the reload timeout and set it again.
-                clearTimeout(timeoutReloadHassio);
-                timeoutReloadHassio = setTimeout(reloadHassio, timeout);
-            }
+            //We received a message from the dashboard.js file in Home Assistant.
+            //Clear the reload timeout and set it again.
+            clearTimeout(timeoutReloadHassio);
+            timeoutReloadHassio = setTimeout(reloadHassio, timeout);
         };
 
         function reloadHassio() {
