@@ -7,7 +7,7 @@ The solution loads Home Assistant in an iframe and refreshes the iframe when it 
 In Home Assistant itself a javascript file is loaded to send the messages to the iframe.
 
 ### Setup
-Download the dashboard.html and dashboard.js files. Change the two url's in dashboard.html to the url of your dashboard.
+Download the dashboard.html and dashboard.js files. Change the iframe src url in dashboard.html to the url of your dashboard.
 Upload the dashboard.html and dashboard.js to the www folder in your config folder.
 Then add the js file (/local/dashboard.js) as a new source in lovelace (http(s)://yourhadomain/config/lovelace/resources). 
 
